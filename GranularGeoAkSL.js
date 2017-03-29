@@ -32,7 +32,7 @@ var handler = new OpenmixApplication({
 		},
 		default_ttl: 20,
 		radar_availability_threshold: 65,
-		sonar_availability_threshold: 2,
+		sonar_availability_threshold: 1,
 		min_rtt: 1,
 		rtt_tp_mix: 0.0 // 0 = pure RTT, 1 = pure TP(kbps)
 	},
@@ -40,13 +40,13 @@ var handler = new OpenmixApplication({
 		market: {
 			'NA': {
 				providers: {
-					'passthrough-aks2': {}
+					'passthrough-aks2': {},
 					'passthrough-aks3': {}
 
 				},
 				fallbackBehavior: {
 					providers: {
-					'passthrough-aks4': {}
+					'passthrough-aks4': {},
 					'passthrough-aks6': {}
 					}
 				}
