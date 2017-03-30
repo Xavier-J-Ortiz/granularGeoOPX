@@ -1,22 +1,15 @@
 var handler = new OpenmixApplication({
 	// keys are the Openmix aliases set in the Portal
 	providers: {
-		//Montreal
-		'passthrough-aks2': {
-			cname: 's2.cmmast-origin.masters.com'
+
+		// UK
+		'bluemix-uk': {
+			cname: 'masters-share.eu-gb.mybluemix.net'
 		},
-		//San Jose
-		'passthrough-aks3': {
-			cname: 's3.cmmast-origin.masters.com'
-		},
-			//London
-			'passthrough-aks4': {
-				cname: 's4.cmmast-origin.masters.com'
-			},
-			//Tokyo
-			'passthrough-aks6': {
-				cname: 's6.cmmast-origin.masters.com'
-			}
+		// US
+		'bluemix-us': {
+			cname: 'masters-share.mybluemix.net'
+		}
 	},
 	geo_order: ['state_asn', 'region_asn', 'country_asn', 'market_asn', 'asn', 'state', 'region', 'country', 'market'],
 	use_radar_availability_threshold: true,
@@ -24,10 +17,8 @@ var handler = new OpenmixApplication({
 		// default_settings is used to have providers and configuration options for all geos that aren't defined in geo_settings map.
 	default_settings: {
 		providers: {
-			'passthrough-aks2': {},
-			'passthrough-aks3': {},
-			'passthrough-aks4': {},
-				'passthrough-aks6': {}
+			'bluemix-uk': {},
+			'bluemix-us': {}
 		},
 		default_ttl: 20,
 		radar_availability_threshold: 80,
@@ -39,48 +30,42 @@ var handler = new OpenmixApplication({
 		market: {
 			'NA': {
 				providers: {
-					'passthrough-aks2': {},
-					'passthrough-aks3': {},
-					'passthrough-aks4': {},
-						'passthrough-aks6': {}
+					'bluemix-uk': {},
+					'bluemix-us': {}
 				},
 				radar_availability_threshold : 85,
 				fallbackBehavior: {
 					providers: {
-						'passthrough-aks2': {},
-						'passthrough-aks3': {}
+						'bluemix-uk': {},
+						'bluemix-us': {}
 					},
 					radar_availability_threshold : 50
 				}
 			},
 			'XX': {
 				providers: {
-					'passthrough-aks2': {},
-					'passthrough-aks3': {},
-					'passthrough-aks4': {},
-						'passthrough-aks6': {}
+					'bluemix-uk': {},
+					'bluemix-us': {}
 				},
 				radar_availability_threshold : 85,
 				fallbackBehavior: {
 					providers: {
-						'passthrough-aks2': {},
-						'passthrough-aks3': {}
+						'bluemix-uk': {},
+						'bluemix-us': {}
 					},
 					radar_availability_threshold : 50
 				}
 			},
 			'SA': {
 				providers: {
-					'passthrough-aks2': {},
-					'passthrough-aks3': {},
-					'passthrough-aks4': {},
-						'passthrough-aks6': {}
+					'bluemix-uk': {},
+					'bluemix-us': {}
 				},
 				radar_availability_threshold : 85,
 				fallbackBehavior: {
 					providers: {
-						'passthrough-aks2': {},
-						'passthrough-aks3': {}
+						'bluemix-uk': {},
+						'bluemix-us': {}
 					},
 					radar_availability_threshold : 50
 				}
@@ -88,64 +73,56 @@ var handler = new OpenmixApplication({
 				//Very sparse data in Africa right now, might tweak once we get more measurements
 			'AF': {
 				providers: {
-					'passthrough-aks4': {},
-					'passthrough-aks2': {},
-					'passthrough-aks2': {},
-						'passthrough-aks3': {}
+					'bluemix-uk': {},
+					'bluemix-us': {}
 				},
 				radar_availability_threshold : 85,
 				fallbackBehavior: {
 					providers: {
-						'passthrough-aks4': {},
-						'passthrough-aks6': {}
+						'bluemix-uk': {},
+						'bluemix-us': {}
 					},
 					radar_availability_threshold : 50
 				}
 			},
 			'EU': {
 				providers: {
-					'passthrough-aks4': {},
-					'passthrough-aks2': {},
-					'passthrough-aks3': {},
-						'passthrough-aks6': {}
+					'bluemix-uk': {},
+					'bluemix-us': {}
 				},
 				radar_availability_threshold : 85,
 				fallbackBehavior: {
 					providers: {
-						'passthrough-aks4': {},
-						'passthrough-aks2': {}
+						'bluemix-uk': {},
+						'bluemix-us': {}
 					},
 					radar_availability_threshold : 50
 				}
 			},
 			'AS': {
 				providers: {
-					'passthrough-aks6': {},
-					'passthrough-aks3': {},
-					'passthrough-aks2': {},
-						'passthrough-aks4': {}
+					'bluemix-uk': {},
+					'bluemix-us': {}
 				},
 				radar_availability_threshold : 85,
 				fallbackBehavior: {
 					providers: {
-						'passthrough-aks6': {},
-						'passthrough-aks3': {}
+						'bluemix-uk': {},
+						'bluemix-us': {}
 					},
 					radar_availability_threshold : 50
 				}
 			},
 			'OC': {
 				providers: {
-					'passthrough-aks6': {},
-					'passthrough-aks3': {},
-					'passthrough-aks2': {},
-						'passthrough-aks4': {}
+					'bluemix-uk': {},
+					'bluemix-us': {}
 				},
 				radar_availability_threshold : 85,
 				fallbackBehavior: {
 					providers: {
-						'passthrough-aks3': {},
-						'passthrough-aks6': {}
+						'bluemix-uk': {},
+						'bluemix-us': {}
 					},
 					radar_availability_threshold : 50
 				}
