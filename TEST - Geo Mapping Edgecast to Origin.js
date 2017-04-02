@@ -89,7 +89,7 @@ var handler = new OpenmixApplication({
 			'AF': {
 				providers: {
 					'passthrough-vds4': {},
-					'passthrough-vds2': {},
+					'passthrough-vds6': {},
 					'passthrough-vds2': {},
 						'passthrough-vds3': {},
 				},
