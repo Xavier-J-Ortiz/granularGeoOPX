@@ -1,0 +1,45 @@
+{
+  "debugging": true,
+  "defaultResourceTimingConfig": "default",
+  "defaultResourceTimingReportMethod": "all",
+  "sites": {},
+  "resourceTiming": {
+    "default": {
+      "resourceTimingBufferSize": 300,
+      "sampleIntervals": [
+        1000,
+        5000,
+        10000
+      ],
+      "blacklist": [
+        "1-22704",
+        "1-22704-"
+      ],
+      "whitelist": [
+        ".*"
+      ]
+    },
+    "disabled": {
+      "whitelist": [],
+      "blacklist": [],
+      "resourceTimingBufferSize": 300
+    }
+  },
+  "providerDetection": {
+    "default": {
+      "www.masters.com": {
+        "path": "/favicon.ico",
+        "headers": [
+          {
+            "regex": "server:",
+            "providerName": "Edgecast"
+          },
+          {
+            "regex": ".*",
+            "providerName": "Akamai"
+          }
+        ]
+      }
+    }
+  }
+}

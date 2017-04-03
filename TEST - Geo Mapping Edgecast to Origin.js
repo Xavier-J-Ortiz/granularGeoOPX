@@ -91,7 +91,7 @@ var handler = new OpenmixApplication({
 					'passthrough-vds4': {},
 					'passthrough-vds6': {},
 					'passthrough-vds2': {},
-						'passthrough-vds3': {}
+						'passthrough-vds3': {},
 				},
 				radar_availability_threshold : 85,
 				fallbackBehavior: {
