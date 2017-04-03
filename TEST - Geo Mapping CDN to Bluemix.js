@@ -197,7 +197,8 @@ function OpenmixApplication(settings) {
 											hypotheticalCandidates,
 											hypotheticalBestProvider,
 												unavailBestProvider,
-												allCandidates;
+												allCandidates,
+													candidatesAvail;
 
 		allReasons = {
 			optimum_server_chosen: 'A',
@@ -209,7 +210,7 @@ function OpenmixApplication(settings) {
 			all_providers_eliminated_radar: 'G',
 			all_providers_eliminated_sonar: 'H',
 			geo_default: 'I',
-			only_one_provider_san_josevail: 'J',
+			only_one_provider_avail: 'J',
 			data_problem: 'K',
 			sonar_data_problem: 'L',
 			geo_fallback_behavior: 'M',
@@ -441,10 +442,11 @@ function OpenmixApplication(settings) {
 		}
 
 		// Provider eligibility check - filtering per Global_Settings or Geo_Settings
-		candidates = overrideSettingByGeo();
+		candidates = cloneObject(overrideSettingByGeo());
 		allCandidates = cloneObject(candidates);
 
 		if (hypotheticalCandidates !== undefined) {
+			hypotheticalCandidates = cloneObject(hypotheticalCandidates);
 			hypotheticalBestProvider = getHypotheticalCandidate(hypotheticalCandidates);
 		}
 
@@ -467,15 +469,28 @@ function OpenmixApplication(settings) {
 			}
 
 			if (candidateAliases.length === 0) {
-				// Join the avail scores with the list of viable candidates
-				candidates = intersectObjects(cloneObject(selectedCandidates), dataAvail, 'avail');
+				// Filter sonar, only use sonar available provider, at least all of them are unavailable
+				candidates = filterObject(selectedCandidates, filterSonarAvailability);
 				candidateAliases = Object.keys(candidates);
+
 				if (candidateAliases.length > 0) {
-					decisionProvider = getHighest(candidates, 'avail');
+					candidates = intersectObjects(candidates, dataAvail, 'avail');
+					if (Object.keys(candidates).length > 0) {
+						decisionProvider = getHighest(candidates, 'avail');
+					} else {
+						decisionProvider = candidateAliases[Math.floor(Math.random() * candidateAliases.length)];
+					}
+				} else {
+					// Join the avail scores with the list of viable candidates
+					candidates = intersectObjects(cloneObject(selectedCandidates), dataAvail, 'avail');
+					candidateAliases = Object.keys(candidates);
+					if (candidateAliases.length > 0) {
+						decisionProvider = getHighest(candidates, 'avail');
+					}
 				}
 			} else if (candidateAliases.length === 1) {
 				decisionProvider = candidateAliases[0];
-				decisionReasons.push(allReasons.only_one_provider_san_josevail);
+				decisionReasons.push(allReasons.only_one_provider_avail);
 			} else {
 				// Join the rtt scores with the list of viable candidates
 				candidates = intersectObjects(candidates, dataRtt, 'http_rtt');
@@ -511,8 +526,22 @@ function OpenmixApplication(settings) {
 
 		if (decisionProvider === undefined) {
 			candidates = fallbackBehavior && fallbackBehavior.providers && Object.keys(fallbackBehavior.providers).length > 0 ? fallbackBehavior.providers : settings.default_settings.providers;
-			candidateAliases = Object.keys(candidates);
-			decisionProvider = candidateAliases[Math.floor(Math.random() * candidateAliases.length)];
+
+			candidatesAvail = filterObject(candidates, filterSonarAvailability);
+			candidateAliases = Object.keys(candidatesAvail);
+
+			if (candidateAliases.length > 0) {
+
+				candidates = intersectObjects(candidatesAvail, dataAvail, 'avail');
+				if (Object.keys(candidates).length > 0) {
+					decisionProvider = getHighest(candidates, 'avail');
+				} else {
+					decisionProvider = candidateAliases[Math.floor(Math.random() * candidateAliases.length)];
+				}
+			} else {
+				candidateAliases = Object.keys(candidates);
+				decisionProvider = candidateAliases[Math.floor(Math.random() * candidateAliases.length)];
+			}
 			decisionReasons.push(allReasons.data_problem);
 		}
 
